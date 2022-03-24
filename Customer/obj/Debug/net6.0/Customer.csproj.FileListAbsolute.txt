@@ -1,0 +1,15 @@
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.csproj.AssemblyReference.cache
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.AssemblyInfoInputs.cache
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.AssemblyInfo.cs
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.csproj.CoreCompileInputs.cache
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/Customer
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/Customer.deps.json
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/Customer.runtimeconfig.json
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/Customer.dll
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/ref/Customer.dll
+/Users/antonmarinov/Projects/VendingMachine/Customer/bin/Debug/net6.0/Customer.pdb
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.dll
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/ref/Customer.dll
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.pdb
+/Users/antonmarinov/Projects/VendingMachine/Customer/obj/Debug/net6.0/Customer.genruntimeconfig.cache
