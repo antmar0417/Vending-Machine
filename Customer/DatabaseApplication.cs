@@ -1,97 +1,98 @@
 ﻿class DatabaseApplication
 {
-    public List<string> Database { get; set; } = new List<string>();
-    public List<string> Commands { get; set; } = new List<string>()
+    public List<Product> Products { get; } = new List<Product>()
     {
-        "For Coca Cola (25 SEK) press: 1",
-        "For Fanta (25 SEK) press: 2",
-        "For Loka (20 SEK) press: 3",
-        "For Snickers (15 SEK) press: 4",
-        "Cancel: C"
+        new Product(25, "Coca Cola"),
+        new Product(25, "Fanta"),
+        new Product(20, "Loka"),
+        new Product(15, "Snickers"),
     };
 
-    public DatabaseApplication() => Load();
+    public List<string> Commands { get; set; } = new List<string>();
 
-    public void Load()
+    public DatabaseApplication()
     {
-        var filename = "/tmp/database.txt";
-
-        if (File.Exists(filename))
-            Database = File.ReadAllLines(filename).ToList();
+        for (int i = 0; i < Products.Count; i++)
+        {
+            Commands.Add($"For {Products[i].Name} ({Products[i].Cost} SEK) press: {i + 1},");
+        }
     }
 
-    public void Save()
+    public void DisplayProducts()
     {
-        var filename = "/tmp/database.txt";
-
-        File.WriteAllLines(filename, Database);
+        Console.WriteLine();
+        for (int i = 0; i < Products.Count; i++)
+        {
+            Console.WriteLine($"For {Products[i].Name} ({Products[i].Cost} SEK) press: {i + 1}");
+        }
     }
-
+   
     public void Run(Customer customer)
     {
-        var insertMoney = GetInteger("Please add money into machine: ");
+            var insertMoney = GetInteger("Please add money into machine: ");
             customer.account = insertMoney;
             Console.WriteLine();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("*** MENU ***");
-            Console.WriteLine();
+            Console.WriteLine("****** MENU ******");
             Console.ResetColor();
+            DisplayProducts();
 
-            string command;
-
-            do
+        bool command = true;
+          
+        do
+        {
+            var commandInt = GetInteger("Please choose a number: ");
+            if (commandInt <= Products.Count)
             {
-                command = GetCommand();
-
-                if (command == "1")
+                for (int i = 0; i < Products.Count; i++)
                 {
-                    if (customer.account >= 25)
+                    if (commandInt == i + 1)
                     {
-                        customer.account -= 25;
-                        Console.WriteLine($"Your account: {customer.account}");
-                        Console.WriteLine("Do you want to qouit Y/N");
-                        var answer = Console.ReadLine()!;
-
-                        if (answer == "Y" || answer == "y")
+                        if (customer.account >= Products[i].Cost)
                         {
-                            command = "C";
+                            Console.WriteLine();
+                            Console.WriteLine($"Your choose: {Products[i].Name}");
+                            customer.account -= Products[i].Cost;
+                            Console.WriteLine($"Your account: {customer.account} SEK");
+                            Console.WriteLine("Do you want to quit Y/N");
+                            var answer = Console.ReadLine()!;
+
+                            if (answer == "N" || answer == "n")
+                            {
+                                DisplayProducts();
+                                continue;
+                            }
+
+                            if (answer == "Y" || answer == "y")
+                            {
+                                command = false;
+                            }
+                        }
+                        else
+                        {
+                            Console.BackgroundColor = ConsoleColor.Black;
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine();
+                            Console.WriteLine("You don't have enough money!");
+                            Console.ResetColor();
+                            command = false;
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("You don't have enough money!");
-                        command = "C";
-                    }
                 }
-
-            } while (command != "C" && command != "c");
-    }
-
-    public void List()
-    {
-        foreach (var company in Database)
-        {
-            Console.WriteLine(company);
-        }
-
-        Console.WriteLine("--");
-        Console.WriteLine($"Companies in database: {Database.Count}");
-        Console.WriteLine();
-    }
-
-    public void Help()
-    {
-
-        foreach (var command in Commands)
-        {
-            if (command != "help")
-            {
-                Console.WriteLine(command);
             }
-        }
+            else
+            {
+                Console.WriteLine();
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("----- Unknown command! -----");
+                Console.ResetColor();
+                DisplayProducts();
+                continue;
+            }
 
-        Console.WriteLine();
+        } while (command);
     }
 
     public int GetInteger(string prompt)
@@ -103,17 +104,6 @@
 
             if (int.TryParse(input, out var number))
                 return number;
-        }
-    }
-
-    public string GetCommand()
-    {
-        while (true)
-        {
-            Help();
-
-            var input = Console.ReadLine()!;
-            return input;
         }
     }
 }
